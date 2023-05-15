@@ -68,7 +68,9 @@ while True:
         if 'failoverLabel' in service.metadata.labels and service.metadata.labels['failoverLabel'] is not None:
             failover_label = service.metadata.labels['failoverLabel']
             if service.spec.selector is None or failover_label not in service.spec.selector or service.spec.selector[failover_label] is None:
-                log(LogLevels.ERROR, 'Service '+service.metadata.name+' can not be used for automatic priority-based failover since the label "'+failover_label+'" is missing in the selector specification (or no value is provided)!')
+                log(LogLevels.INFO, 'Adding label "'+failover_label+'" to service '+service.metadata.name+'. Using default selector value "active".')
+                service.spec.selector[failover_label] = 'active'
+                v1.patch_namespaced_service(pod.metadata.name, pod.metadata.namespace, { 'spec': { 'selector': svc_selector } })
             else:
                 svc_selector = service.spec.selector
                 failover_status_name = svc_selector[failover_label]
