@@ -14,7 +14,7 @@ There are two environment variables which can be specified:
 
 # Example
 
-Please refer to the example provided in `example/example.yaml` and the README on [Docker Hub](https://hub.docker.com/repository/docker/alphanoob1337/failover-controller)
+Please refer to the example provided in `example/example.yaml` and the README on [Docker Hub](https://hub.docker.com/r/alphanoob1337/failover-controller)
 
 # Build instructions
 
