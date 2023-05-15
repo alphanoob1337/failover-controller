@@ -65,7 +65,7 @@ while True:
     pods = v1.list_namespaced_pod(namespace, watch=False)
 
     for service in services.items:
-        if 'failoverLabel' in service.metadata.labels and service.metadata.labels['failoverLabel'] is not None:
+        if service.metadata.labels is not None and 'failoverLabel' in service.metadata.labels and service.metadata.labels['failoverLabel'] is not None:
             failover_label = service.metadata.labels['failoverLabel']
             if service.spec.selector is None or failover_label not in service.spec.selector or service.spec.selector[failover_label] is None:
                 log(LogLevels.INFO, 'Adding label "'+failover_label+'" to service '+service.metadata.name+'. Using default selector value "active".')
