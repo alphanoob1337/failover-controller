@@ -70,7 +70,7 @@ while True:
             if service.spec.selector is None or failover_label not in service.spec.selector or service.spec.selector[failover_label] is None:
                 log(LogLevels.INFO, 'Adding label "'+failover_label+'" to service '+service.metadata.name+'. Using default selector value "active".')
                 service.spec.selector[failover_label] = 'active'
-                v1.patch_namespaced_service(pod.metadata.name, pod.metadata.namespace, { 'spec': { 'selector': svc_selector } })
+                v1.patch_namespaced_service(service.metadata.name, service.metadata.namespace, { 'spec': { 'selector': service.spec.selector } })
             else:
                 svc_selector = service.spec.selector
                 failover_status_name = svc_selector[failover_label]
